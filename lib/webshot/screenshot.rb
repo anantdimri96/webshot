@@ -72,10 +72,8 @@ module Webshot
 
           # Save screenshot to file
 
-          s3 = Aws::S3::Resource.new(region: 'us-east-1')
-          obj = s3.bucket(bucket).object(path)
-          page.driver.save_screenshot(obj.upload_file(tmp), screenshot_opts)
 
+          page.driver.save_screenshot(tmp.path, screenshot_opts)
           # Resize screenshot
           thumb = MiniMagick::Image.open(tmp.path)
           if block_given?
@@ -93,7 +91,10 @@ module Webshot
 
           # Save thumbnail
           thumb.write path
-          web = S3Store.new(params[:campaign][:web_url]).store
+          s3 = Aws::S3::Resource.new(region: 'us-east-1')
+          obj = s3.bucket(bucket).object(path)
+          obj.upload_file(thumb)
+          # web = S3Store.new(params[:campaign][:web_url]).store
           thumb
         ensure
           tmp.unlink

@@ -37,7 +37,7 @@ module Webshot
     end
 
     # Captures a screenshot of +url+ saving it to +path+.
-    def capture(url,bucket ,path, opts = {})
+    def capture(url ,path, opts = {})
       begin
         # Default settings
         width   = opts.fetch(:width, 120)
@@ -93,7 +93,7 @@ module Webshot
           thumb.write path
           s3 = Aws::S3::Resource.new(region: 'us-east-1')
           obj = s3.bucket(bucket).object(path)
-          obj.upload_file(thumb)
+          obj.upload_file(tmp)
           # web = S3Store.new(params[:campaign][:web_url]).store
           thumb
         ensure

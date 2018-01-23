@@ -103,7 +103,7 @@ module Webshot
           # obj = s3.bucket(bucket).object(path)
           # obj.upload_file(thumb)
           # web = S3Store.new(params[:campaign][:web_url]).store
-          thumb
+        puts  thumb
         ensure
           tmp.unlink
         end

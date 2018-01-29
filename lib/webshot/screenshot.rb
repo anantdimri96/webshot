@@ -75,7 +75,7 @@ module Webshot
           # Save screenshot to file
 
 
-          page.driver.save_screenshot(tmp.path, screenshot_opts)
+          # page.driver.save_screenshot(tmp.path, screenshot_opts)
           # Resize screenshot
           thumb = MiniMagick::Image.open(tmp.path)
           if block_given?
@@ -92,19 +92,18 @@ module Webshot
           end
 
           # Save thumbnail
-          thumb.write path
+          # thumb.write path
           # temp=Base64.strict_encode64(thumb)
           # # render plain: temp
           # # return
           # data = Base64.decode64(params[temp].to_s)
           # type = params[:contentType].to_s
-          # name = ('a'..'z').to_a.shuffle[0..7].join + ".png"
-          # s3 = Aws::S3::Resource.new(region: 'us-east-1')
-          # obj = s3.bucket(bucket).object(path)
-          # obj.upload_file(thumb)
+           # name = ('a'..'z').to_a.shuffle[0..7].join + ".png"
+           # s3 = Aws::S3::Resource.new(region: 'us-east-1')
+           # obj = s3.bucket(bucket).object(name)
+           # obj.upload_file(thumb.path)
           # web = S3Store.new(params[:campaign][:web_url]).store
-           STDOUT.puts "sdasdasdsdfbasdjfbqrjkfguaerghaerhgaeripgh"
-        puts thumb
+          return thumb
         ensure
           tmp.unlink
         end

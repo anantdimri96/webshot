@@ -92,7 +92,7 @@ module Webshot
           end
 
           # Save thumbnail
-           thumb.write path
+          # thumb.write path
           # temp=Base64.strict_encode64(thumb)
           # # render plain: temp
           # # return

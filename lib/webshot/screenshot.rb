@@ -1,10 +1,4 @@
 require "singleton"
-require 'aws-sdk'  # v2: require 'aws-sdk'
-require 'json'
-require "base64"
-
-
-
 
 module Webshot
   class Screenshot
@@ -39,7 +33,7 @@ module Webshot
     end
 
     # Captures a screenshot of +url+ saving it to +path+.
-    def capture(url ,path, opts = {})
+    def capture(url, path, opts = {})
       begin
         # Default settings
         width   = opts.fetch(:width, 120)
@@ -73,9 +67,8 @@ module Webshot
           screenshot_opts = screenshot_opts.merge({ selector: selector }) if selector
 
           # Save screenshot to file
+          page.driver.save_screenshot(tmp.path, screenshot_opts)
 
-
-          # page.driver.save_screenshot(tmp.path, screenshot_opts)
           # Resize screenshot
           thumb = MiniMagick::Image.open(tmp.path)
           if block_given?
@@ -92,8 +85,7 @@ module Webshot
           end
 
           # Save thumbnail
-           thumb.write path
-        
+          thumb.write path
           return thumb
         ensure
           tmp.unlink
